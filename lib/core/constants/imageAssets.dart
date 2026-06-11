@@ -12,6 +12,10 @@ abstract class ImageAssets {
   static const String fullAppLogoImage = "${baseImagePath}fullAppLogoImage.png";
   static const String eventDetailsImage = "${baseImagePath}eventDetailsImage.png";
 
+  static const String bookmarkImage = "${baseImagePath}bookmarkImage.png";
+  static const String calendarImage = "${baseImagePath}calendarImage.png";
+  static const String locationImage = "${baseImagePath}locationImage.png";
+
 
   // Onboarding Images
   static const String onboardingOneImage = "${baseImagePath}onboarding_1.png";
