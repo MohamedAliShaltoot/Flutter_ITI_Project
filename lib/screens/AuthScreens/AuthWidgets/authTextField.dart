@@ -1,23 +1,26 @@
 import 'package:flutter/material.dart';
 import '../../../core/constants/appSpacing.dart';
 import '../../../core/constants/app_Colors.dart';
+import '../../../core/constants/imageAssets.dart';
 
 class AuthTextField extends StatefulWidget {
   final String hint;
-  final IconData leadingIcon;
+  //final IconData leadingIcon;
   final bool isPassword;
   final TextEditingController? controller;
   final TextInputType keyboardType;
   final TextInputAction textInputAction;
+  final String? image;
 
   const AuthTextField({
     super.key,
     required this.hint,
-    required this.leadingIcon,
+   // required this.leadingIcon,
     this.isPassword = false,
     this.controller,
     this.keyboardType = TextInputType.text,
     this.textInputAction = TextInputAction.next,
+    this.image,
   });
 
   @override
@@ -46,12 +49,13 @@ class _AuthTextFieldState extends State<AuthTextField> {
         child: Row(
           children: [
             const SizedBox(width: 16),
-            Icon(
-              widget.leadingIcon,
-              size: 18,
-              color:
-                  _hasFocus ? AppColors.primaryColor : AppColors.textSecondary,
-            ),
+            // Icon(
+            //   widget.leadingIcon,
+            //   size: 18,
+            //   color:
+            //       _hasFocus ? AppColors.primaryColor : AppColors.textSecondary,
+            // ),
+            Image.asset(widget.image ?? "",width: 16,height: 16),
             const SizedBox(width: 10),
             Expanded(
               child: TextField(

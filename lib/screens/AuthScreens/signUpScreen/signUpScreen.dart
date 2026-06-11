@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../../core/constants/appSpacing.dart';
 import '../../../core/constants/app_Colors.dart';
+import '../../../core/constants/imageAssets.dart';
 import '../AuthWidgets/authFooterRow.dart';
 import '../AuthWidgets/authTextField.dart';
 import '../AuthWidgets/customSocialLogo.dart';
@@ -68,28 +69,28 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
               AuthTextField(
                 hint: 'Full name',
-                leadingIcon: Icons.person_outline_rounded,
+               image: ImageAssets.profileImage,
                 controller: _nameCtrl,
                 keyboardType: TextInputType.name,
               ),
               const SizedBox(height: AppSpacing.gapMd),
               AuthTextField(
                 hint: 'abc@email.com',
-                leadingIcon: Icons.mail_outline_rounded,
+               image: ImageAssets.emailImage,
                 controller: _emailCtrl,
                 keyboardType: TextInputType.emailAddress,
               ),
               const SizedBox(height: AppSpacing.gapMd),
               AuthTextField(
                 hint: 'Your password',
-                leadingIcon: Icons.lock_outline_rounded,
+                image: ImageAssets.lockImage,
                 isPassword: true,
                 controller: _passwordCtrl,
               ),
               const SizedBox(height: AppSpacing.gapMd),
               AuthTextField(
                 hint: 'Confirm password',
-                leadingIcon: Icons.lock_outline_rounded,
+                image: ImageAssets.lockImage,
                 isPassword: true,
                 controller: _confirmCtrl,
                 textInputAction: TextInputAction.done,
@@ -97,7 +98,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
               const SizedBox(height: AppSpacing.gapXl),
 
 
-              PrimaryAuthButton(label: 'SIGN UP', onTap: () {
+              PrimaryButton(label: 'SIGN UP', onTap: () {
                 if (_passwordCtrl.text != _confirmCtrl.text) {
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(content: Text('Passwords do not match')),
