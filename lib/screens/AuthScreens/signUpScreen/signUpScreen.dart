@@ -98,7 +98,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
               const SizedBox(height: AppSpacing.gapXl),
 
 
-              PrimaryAuthButton(label: 'SIGN UP', onTap: () {
+              PrimaryButton(label: 'SIGN UP', onTap: () {
                 if (_passwordCtrl.text != _confirmCtrl.text) {
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(content: Text('Passwords do not match')),

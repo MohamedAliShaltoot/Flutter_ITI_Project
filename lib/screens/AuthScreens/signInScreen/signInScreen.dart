@@ -103,7 +103,7 @@ class _SignInScreenState extends State<SignInScreen> {
               ),
               const SizedBox(height: AppSpacing.gapLg),
 
-              PrimaryAuthButton(
+              PrimaryButton(
                 label: 'SIGN IN',
                 onTap: () {
                   if (_passwordCtrl.text.isEmpty) {

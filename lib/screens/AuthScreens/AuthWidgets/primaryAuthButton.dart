@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import '../../../core/constants/appSpacing.dart';
 import '../../../core/constants/app_Colors.dart';
 
-class PrimaryAuthButton extends StatelessWidget {
+class PrimaryButton extends StatelessWidget {
   final String label;
   final VoidCallback onTap;
 
-  const PrimaryAuthButton({
+  const PrimaryButton({
     super.key,
     required this.label,
     required this.onTap,
