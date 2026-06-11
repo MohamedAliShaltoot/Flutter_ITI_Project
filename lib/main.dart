@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tickety/screens/EventsScreen/EmptyEvent/emptyEventScreen.dart';
 import 'package:tickety/screens/OnBoardingScreens/SplashScreen/splashScreen.dart';
 import 'core/constants/appConstants.dart';
 
@@ -12,6 +13,7 @@ class TicketyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false, 
       title: AppConstants.appName,
-      home: SplashScreen());
+     // home: SplashScreen());
+      home: EmptyEventsScreen());
   }
 }
