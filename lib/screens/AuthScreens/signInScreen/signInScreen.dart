@@ -61,14 +61,14 @@ class _SignInScreenState extends State<SignInScreen> {
 
               AuthTextField(
                 hint: 'abc@email.com',
-                leadingIcon: Icons.mail_outline_rounded,
+                image: ImageAssets.emailImage,
                 controller: _emailCtrl,
                 keyboardType: TextInputType.emailAddress,
               ),
               const SizedBox(height: AppSpacing.gapMd),
               AuthTextField(
                 hint: 'Your password',
-                leadingIcon: Icons.lock_outline_rounded,
+                image: ImageAssets.lockImage,
                 isPassword: true,
                 controller: _passwordCtrl,
                 textInputAction: TextInputAction.done,
