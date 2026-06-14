@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../core/constants/app_Colors.dart';
 import '../../../../core/constants/imageAssets.dart';
+import '../../../../core/routes/app_routes.dart';
 
 class OrganizerRow extends StatelessWidget {
   @override
@@ -11,7 +12,6 @@ class OrganizerRow extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: Row(
         children: [
-          // Organizer avatar
           Container(
             width: 48,
             height: 48,
@@ -46,7 +46,9 @@ class OrganizerRow extends StatelessWidget {
           const Spacer(),
           // Follow button
           OutlinedButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.pushNamed(context, AppRoutes.organizerProfileScreen);
+            },
             style: OutlinedButton.styleFrom(
               backgroundColor: Color(0xffebedff) ,
               side: const BorderSide(color: AppColors.whiteColor),

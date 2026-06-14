@@ -4,6 +4,7 @@ import 'package:tickety/screens/EventsScreen/DetailsEventScreen/widgets/attendee
 import 'package:tickety/screens/EventsScreen/DetailsEventScreen/widgets/infoRow.dart';
 import 'package:tickety/screens/EventsScreen/DetailsEventScreen/widgets/organizeRow.dart';
 import '../../../core/constants/imageAssets.dart';
+import '../../../core/routes/app_routes.dart';
 import '../../../core/sharedWidgets/primaryButton.dart';
 
 class EventDetailsScreen extends StatelessWidget {
@@ -16,7 +17,9 @@ class EventDetailsScreen extends StatelessWidget {
       bottomNavigationBar: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-          child: PrimaryButton(label: 'BUY TICKET \$120', onTap: () {}),
+          child: PrimaryButton(label: 'BUY TICKET \$120', onTap: () {
+            Navigator.pushNamed(context, AppRoutes.emptyEventsScreen);
+          }),
         ),
       ),
       body: CustomScrollView(
@@ -59,17 +62,13 @@ class EventDetailsScreen extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Transform.translate(
-                  offset: const Offset(0, 0),
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 16,
-                      vertical: 16,
-                    ),
-                    child: AttendeesRow(),
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 16,
+                    vertical: 16,
                   ),
+                  child: AttendeesRow(),
                 ),
-
                 const Padding(
                   padding: EdgeInsets.symmetric(horizontal: 16),
                   child: Text(

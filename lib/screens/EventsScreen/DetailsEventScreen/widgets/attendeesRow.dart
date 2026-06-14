@@ -20,7 +20,6 @@ class AttendeesRow extends StatelessWidget {
       ),
       child: Row(
         children: [
-          // Stacked avatars
           SizedBox(
             width: 90,
             height: 36,
@@ -42,7 +41,6 @@ class AttendeesRow extends StatelessWidget {
             ),
           ),
           const Spacer(),
-          // Invite button
           ElevatedButton(
             onPressed: () {},
             style: ElevatedButton.styleFrom(

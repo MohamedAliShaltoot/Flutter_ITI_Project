@@ -6,7 +6,7 @@ class AppRoutes {
   static const String emptyEventsScreen = '/eventsScreen';
   static const String signInScreen = '/signInScreen';
   static const String signUpScreen = '/signUpScreen';
-  static const String profileScreen = '/profileScreen';
+  static const String organizerProfileScreen = '/organizerProfileScreen';
   static const String notificationScreen = '/notificationScreen';
 
 }

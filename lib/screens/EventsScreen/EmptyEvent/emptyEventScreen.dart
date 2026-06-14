@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../core/constants/imageAssets.dart';
+import '../../../core/routes/app_routes.dart';
 import '../../../core/sharedWidgets/primaryButton.dart';
 import '../DetailsEventScreen/detailsEventScreen.dart';
 
@@ -93,12 +94,7 @@ class EmptyEventsScreen extends StatelessWidget {
             child: PrimaryButton(
               label: 'EXPLORE EVENTS',
               onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (_) => EventDetailsScreen(),
-                  ),
-                );
+               Navigator.pushNamed(context, AppRoutes.allEventsScreen);
               },
             ),
           ),

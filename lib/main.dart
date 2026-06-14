@@ -16,7 +16,7 @@ class TicketyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false, 
       title: AppConstants.appName,
      //initialRoute: AppRoutes.emptyEventsScreen,
-     initialRoute: AppRoutes.allEventsScreen,
+     initialRoute: AppRoutes.eventDetailsScreen,
      onGenerateRoute: RouteGenerator.generateRoute,
     );
   }

@@ -6,6 +6,7 @@ import '../../screens/EventsScreen/AllEventsScreen/allEventScreen.dart';
 import '../../screens/EventsScreen/DetailsEventScreen/detailsEventScreen.dart';
 import '../../screens/EventsScreen/EmptyEvent/emptyEventScreen.dart';
 import '../../screens/EventsScreen/SearchScreen/searchScreen.dart';
+import '../../screens/OrganizerProfileScreen/organizerProfileScreen.dart';
 import 'app_routes.dart';
 
 class RouteGenerator {
@@ -30,6 +31,9 @@ class RouteGenerator {
 
       case AppRoutes.emptyEventsScreen:
         return MaterialPageRoute(builder: (_) => EmptyEventsScreen());
+
+      case AppRoutes.organizerProfileScreen:
+        return MaterialPageRoute(builder: (_) => OrganizerProfileScreen());
 
       default :
         return MaterialPageRoute(builder: (_) => Defaultscreen());
