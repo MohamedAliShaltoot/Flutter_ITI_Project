@@ -22,6 +22,9 @@ abstract class ImageAssets {
   static const String onboardingTwoImage = "${baseImagePath}onboarding_2.png";
   static const String onboardingThreeImage = "${baseImagePath}onboarding_3.png";
 
-    
+  // OrganizerProfile Images
+  static const String followImage = "${baseImagePath}followImage.png";
+  static const String chatImage = "${baseImagePath}chatImage.png";
+  static const String leftArrowImage = "${baseImagePath}leftArrowImage.png";
 
 }

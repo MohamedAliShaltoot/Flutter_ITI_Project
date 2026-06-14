@@ -1,15 +1,20 @@
 import 'package:flutter/material.dart';
 import '../constants/appSpacing.dart';
 import '../constants/app_Colors.dart';
+import '../constants/imageAssets.dart';
 
 class PrimaryButton extends StatelessWidget {
   final String label;
   final VoidCallback onTap;
+  final double? ratio;
+  final String? imagePath;
 
   const PrimaryButton({
     super.key,
     required this.label,
     required this.onTap,
+    this.ratio = 0.9,
+    this.imagePath=ImageAssets.leftArrowImage,
   });
 
   @override
@@ -18,7 +23,7 @@ class PrimaryButton extends StatelessWidget {
       onTap: onTap,
       child: Container(
         height: AppSpacing.buttonHeight,
-        width: MediaQuery.of(context).size.width  * 0.9,
+        width: MediaQuery.of(context).size.width  * ratio!,
         decoration: BoxDecoration(
           color: AppColors.primaryColor,
           borderRadius: BorderRadius.circular(AppSpacing.buttonRadius),
@@ -36,10 +41,9 @@ class PrimaryButton extends StatelessWidget {
                   color: AppColors.arrowBGColor,
                   shape: BoxShape.circle,
                 ),
-                child: const Icon(
-                  Icons.arrow_forward_rounded,
+                child: Image.asset(
+                  imagePath!,
                   color: Colors.white,
-                  size: 18,
                 ),
               ),
             ),
