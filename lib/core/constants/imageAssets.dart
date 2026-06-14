@@ -27,4 +27,12 @@ abstract class ImageAssets {
   static const String chatImage = "${baseImagePath}chatImage.png";
   static const String leftArrowImage = "${baseImagePath}leftArrowImage.png";
 
+
+
+  static const String upComingImage = "${baseImagePath}upComingImage.png";
+  static const String inviteImage = "${baseImagePath}inviteImage.png";
+
+
+
+
 }
