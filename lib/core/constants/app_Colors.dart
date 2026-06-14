@@ -7,6 +7,7 @@ abstract class AppColors {
   static const Color background = Color(0xffFFFFFF);
   static const Color arrowBGColor = Color(0xff3D56F0);
   static const Color grayColor = Color(0xff9D9898);
+  static const Color unactiveNavColor = Color(0xff9D9898);
    static const Color greenColor = Color(0xff00F8FF);
    static const Color dotActiveColor = Color(0xFF7887FF);
    static const Color dotUnActiveColor = Color(0xffFFFFFF);
@@ -22,6 +23,7 @@ abstract class AppColors {
   // toggle
   static const Color toggleActive  = Color(0xFF4A4AFF);
   static const Color toggleTrack   = Color(0xFFDDDDFF);
+  static const Color homeCardBg    = Color(0xFFF0635A);
 
 }
 
