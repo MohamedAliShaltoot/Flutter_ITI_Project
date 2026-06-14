@@ -6,7 +6,7 @@ import '../AuthWidgets/authFooterRow.dart';
 import '../AuthWidgets/authTextField.dart';
 import '../AuthWidgets/customSocialLogo.dart';
 import '../AuthWidgets/orDivider.dart';
-import '../AuthWidgets/primaryAuthButton.dart';
+import '../../../core/sharedWidgets/primaryButton.dart';
 import '../AuthWidgets/socialLoginButton.dart';
 import '../signInScreen/signInScreen.dart';
 

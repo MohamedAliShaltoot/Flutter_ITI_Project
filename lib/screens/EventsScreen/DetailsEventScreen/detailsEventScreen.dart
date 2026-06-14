@@ -4,7 +4,7 @@ import 'package:tickety/screens/EventsScreen/DetailsEventScreen/widgets/attendee
 import 'package:tickety/screens/EventsScreen/DetailsEventScreen/widgets/infoRow.dart';
 import 'package:tickety/screens/EventsScreen/DetailsEventScreen/widgets/organizeRow.dart';
 import '../../../core/constants/imageAssets.dart';
-import '../../AuthScreens/AuthWidgets/primaryAuthButton.dart';
+import '../../../core/sharedWidgets/primaryButton.dart';
 
 class EventDetailsScreen extends StatelessWidget {
   const EventDetailsScreen({super.key});

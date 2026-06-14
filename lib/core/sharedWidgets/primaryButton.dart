@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../../../core/constants/appSpacing.dart';
-import '../../../core/constants/app_Colors.dart';
+import '../constants/appSpacing.dart';
+import '../constants/app_Colors.dart';
 
 class PrimaryButton extends StatelessWidget {
   final String label;
