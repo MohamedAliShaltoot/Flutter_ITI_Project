@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../core/constants/imageAssets.dart';
-import '../../AuthScreens/AuthWidgets/primaryAuthButton.dart';
+import '../../../core/sharedWidgets/primaryButton.dart';
 import '../DetailsEventScreen/detailsEventScreen.dart';
 
 
