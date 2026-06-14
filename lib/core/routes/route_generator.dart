@@ -6,6 +6,7 @@ import '../../screens/EventsScreen/AllEventsScreen/allEventScreen.dart';
 import '../../screens/EventsScreen/DetailsEventScreen/detailsEventScreen.dart';
 import '../../screens/EventsScreen/EmptyEvent/emptyEventScreen.dart';
 import '../../screens/EventsScreen/SearchScreen/searchScreen.dart';
+import '../../screens/HomeScreen/homeScreen.dart';
 import '../../screens/OrganizerProfileScreen/organizerProfileScreen.dart';
 import 'app_routes.dart';
 
@@ -14,6 +15,9 @@ class RouteGenerator {
     switch (settings.name) {
       case AppRoutes.eventDetailsScreen:
         return MaterialPageRoute(builder: (_) => EventDetailsScreen());
+
+      case AppRoutes.homeScreen:
+        return MaterialPageRoute(builder: (_) => HomeScreen());
 
       case AppRoutes.signInScreen:
         return MaterialPageRoute(builder: (_) => SignInScreen());
