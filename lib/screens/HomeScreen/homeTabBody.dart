@@ -119,6 +119,7 @@ class _HomeTabBodyState extends State<HomeTabBody> {
       body: SafeArea(
         bottom: false,
         child: RefreshIndicator(
+          color: AppColors.primaryColor,
           onRefresh: _onRefresh,
           child: SingleChildScrollView(
             physics: const AlwaysScrollableScrollPhysics(),
@@ -138,7 +139,7 @@ class _HomeTabBodyState extends State<HomeTabBody> {
                     children: [
                       Builder(
                         builder: (context) => HomeHeader(
-                          location: '$_city, EGY',
+                          location: '$_city, USA',
                           onMenuTap: () => Scaffold.of(context).openDrawer(),
                           onNotificationTap: () {},
                         ),
@@ -200,7 +201,7 @@ class _HomeTabBodyState extends State<HomeTabBody> {
       case _LoadStatus.loading:
         return const SizedBox(
           height: 40,
-          child: Center(child: CircularProgressIndicator(strokeWidth: 2)),
+          child: Center(child: CircularProgressIndicator(strokeWidth: 2, color: AppColors.primaryColor,)),
         );
       case _LoadStatus.error:
         return InlineError(
@@ -222,7 +223,7 @@ class _HomeTabBodyState extends State<HomeTabBody> {
       case _LoadStatus.loading:
         return const SizedBox(
           height: 230,
-          child: Center(child: CircularProgressIndicator()),
+          child: Center(child: CircularProgressIndicator(strokeWidth: 2, color: AppColors.primaryColor,)),
         );
       case _LoadStatus.error:
         return SizedBox(

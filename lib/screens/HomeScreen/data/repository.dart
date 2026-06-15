@@ -52,4 +52,18 @@ class HomeRepository {
   }) {
     return _service.fetchEventsPageByCity(city: city, size: size, page: page);
   }
+  Future<List<HomeEventModel>> getMyUpcomingEvents({
+    required String city,
+    int size = 20,
+    int page = 0,
+  }) {
+    return _service.fetchUpcomingEventsByCity(city: city, size: size, page: page);
+  }
+
+  Future<List<HomeEventModel>> getMyPastEvents({
+    required String city,
+    int size = 20,
+  }) {
+    return _service.fetchPastEventsByCity(city: city, size: size);
+  }
 }

@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:tickety/screens/HomeScreen/widgets/homeBottomNavBar.dart';
 import 'package:tickety/screens/mapScreen.dart';
 import '../../core/constants/app_Colors.dart';
+import '../EventsScreen/EmptyEvent/myEventScreen.dart';
 import 'homeTabBody.dart';
 import '../EventsScreen/EmptyEvent/emptyEventScreen.dart';
 import '../OrganizerProfileScreen/organizerProfileScreen.dart';
@@ -26,7 +27,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
   final List<Widget> _tabs = const [
     HomeTabBody(),
-    EmptyEventsScreen(),
+    //EmptyEventsScreen(),
+    MyEventsScreen(),
     MapScreen(),
     OrganizerProfileScreen(),
   ];

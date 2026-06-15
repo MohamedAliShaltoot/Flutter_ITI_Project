@@ -176,4 +176,46 @@ class HomeService {
         .map((e) => HomeEventModel.fromJson(e as Map<String, dynamic>))
         .toList();
   }
+
+  Future<List<HomeEventModel>> fetchUpcomingEventsByCity({
+    required String city,
+    int size = 20,
+    int page = 0,
+  }) async {
+    try {
+      final response = await _dio.get(
+        ApiConstants.events,
+        queryParameters: {
+          'city': city,
+          'sort': 'date,asc',
+          'size': size,
+          'page': page,
+        },
+      );
+      return _parseEvents(response.data);
+    } on DioException catch (e) {
+      throw Exception('Failed to load upcoming events: ${e.message}');
+    }
+  }
+
+  Future<List<HomeEventModel>> fetchPastEventsByCity({
+    required String city,
+    int size = 20,
+  }) async {
+    try {
+      final response = await _dio.get(
+        ApiConstants.events,
+        queryParameters: {
+          'city': city,
+          'endDateTime': '2026-06-15T00:00:00Z',
+          'sort': 'date,desc',
+          'size': size,
+        },
+      );
+      return _parseEvents(response.data);
+    } on DioException catch (e) {
+      throw Exception('Failed to load past events: ${e.message}');
+    }
+  }
+
 }
