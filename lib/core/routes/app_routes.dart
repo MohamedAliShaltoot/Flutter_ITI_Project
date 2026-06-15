@@ -2,6 +2,7 @@ class AppRoutes {
   static const String homeScreen = '/homeScreen';
   static const String eventDetailsScreen = '/eventDetailsScreen';
   static const String searchScreen = '/searchScreen';
+  static const String mapScreen = '/mapScreen';
   static const String allEventsScreen = '/allEventsScreen';
   static const String emptyEventsScreen = '/eventsScreen';
   static const String signInScreen = '/signInScreen';

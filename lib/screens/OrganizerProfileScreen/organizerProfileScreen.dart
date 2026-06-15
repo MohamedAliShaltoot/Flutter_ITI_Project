@@ -69,10 +69,10 @@ class OrganizerProfileScreen extends StatelessWidget {
         appBar: AppBar(
           backgroundColor: AppColors.background,
           elevation: 0,
-          leading: IconButton(
-            icon: const Icon(Icons.arrow_back, color: Colors.black87),
-            onPressed: () => Navigator.maybePop(context),
-          ),
+          // leading: IconButton(
+          //   icon: const Icon(Icons.arrow_back, color: Colors.red),
+          //   onPressed: () => Navigator.maybePop(context),
+          // ),
           actions: [
             IconButton(
               icon: const Icon(Icons.more_vert, color: Colors.black87),

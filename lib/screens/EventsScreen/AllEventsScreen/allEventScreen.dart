@@ -156,7 +156,7 @@ class _AllEventsScreenState extends State<AllEventsScreen> {
         child: Column(
           children: [
             ScreenTopBar(
-              color: const Color(0xFFF5F5FB),
+              color:  Colors.black,
               title: 'Events',
               actions: [
                 IconButton(

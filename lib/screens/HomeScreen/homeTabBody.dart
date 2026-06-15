@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:tickety/screens/HomeScreen/widgets/appDrawer.dart';
 import 'package:tickety/screens/HomeScreen/widgets/categoryChipsRow.dart';
 import 'package:tickety/screens/HomeScreen/widgets/homeHeader.dart';
 import 'package:tickety/screens/HomeScreen/widgets/horizontalEventList.dart';
+import 'package:tickety/screens/HomeScreen/widgets/inlineError.dart';
 import 'package:tickety/screens/HomeScreen/widgets/inviteFriendsBanner.dart';
-import 'package:tickety/screens/HomeScreen/widgets/navItem.dart';
 import 'package:tickety/screens/HomeScreen/widgets/sectionHeader.dart';
 import '../../core/constants/app_Colors.dart';
 import '../../core/routes/app_routes.dart';
 import '../EventsScreen/SearchScreen/searchScreen.dart';
 import '../EventsScreen/widgets/reusableSearchField.dart';
-import 'data/homeService.dart';
 import 'data/repository.dart';
 import 'models/eventCategoryModel.dart';
 import 'models/homeEventModel.dart';
@@ -25,7 +25,6 @@ class HomeTabBody extends StatefulWidget {
 }
 
 class _HomeTabBodyState extends State<HomeTabBody> {
-  //final HomeService _service = HomeService();
   final HomeRepository _appRepository = HomeRepository();
 
   _LoadStatus _categoriesStatus = _LoadStatus.loading;
@@ -112,76 +111,84 @@ class _HomeTabBodyState extends State<HomeTabBody> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      bottom: false,
-      child: RefreshIndicator(
-        onRefresh: _onRefresh,
-        child: SingleChildScrollView(
-          physics: const AlwaysScrollableScrollPhysics(),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                padding: const EdgeInsets.fromLTRB(16, 8, 16, 24),
-                decoration: BoxDecoration(
-                  color: AppColors.primaryColor,
-                  borderRadius: const BorderRadius.only(
-                    bottomLeft: Radius.circular(24),
-                    bottomRight: Radius.circular(24),
+    return Scaffold(
+      drawer: const AppDrawer(
+        userName: 'Mohamed Ali Shaltoot',
+        userEmail: 'mohamed.shaltoot@example.com',
+      ),
+      body: SafeArea(
+        bottom: false,
+        child: RefreshIndicator(
+          onRefresh: _onRefresh,
+          child: SingleChildScrollView(
+            physics: const AlwaysScrollableScrollPhysics(),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  padding: const EdgeInsets.fromLTRB(16, 8, 16, 24),
+                  decoration: BoxDecoration(
+                    color: AppColors.primaryColor,
+                    borderRadius: const BorderRadius.only(
+                      bottomLeft: Radius.circular(24),
+                      bottomRight: Radius.circular(24),
+                    ),
+                  ),
+                  child: Column(
+                    children: [
+                      Builder(
+                        builder: (context) => HomeHeader(
+                          location: '$_city, EGY',
+                          onMenuTap: () => Scaffold.of(context).openDrawer(),
+                          onNotificationTap: () {},
+                        ),
+                      ),
+                      const SizedBox(height: 16),
+                      SearchInputField(
+                        readOnly: true,
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (_) => const SearchScreen(),
+                            ),
+                          );
+                        },
+                      ),
+                    ],
                   ),
                 ),
-                child: Column(
-                  children: [
-                    HomeHeader(
-                      location: '$_city, EGY',
-                      onMenuTap: () {},
-                      onNotificationTap: () {},
-                    ),
-                    const SizedBox(height: 16),
-                    SearchInputField(
-                      readOnly: true,
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (_) => const SearchScreen(),
-                          ),
-                        );
-                      },
-                    ),
-                  ],
+                const SizedBox(height: 16),
+                _buildCategoriesSection(),
+
+                const SizedBox(height: 20),
+                SectionHeader(title: 'Upcoming Events', onSeeAllTap: () {
+                  Navigator.pushNamed(context, AppRoutes.allEventsScreen);
+                }),
+                const SizedBox(height: 12),
+                _buildEventsSection(
+                  status: _upcomingStatus,
+                  events: _upcomingEvents,
+                  isUpcomingList: true,
+                  onRetry: _loadUpcoming,
                 ),
-              ),
-              const SizedBox(height: 16),
-              _buildCategoriesSection(),
 
-              const SizedBox(height: 20),
-              SectionHeader(title: 'Upcoming Events', onSeeAllTap: () {
-                Navigator.pushNamed(context, AppRoutes.allEventsScreen);
-              }),
-              const SizedBox(height: 12),
-              _buildEventsSection(
-                status: _upcomingStatus,
-                events: _upcomingEvents,
-                isUpcomingList: true,
-                onRetry: _loadUpcoming,
-              ),
+                const SizedBox(height: 20),
+                InviteFriendsBanner(onInviteTap: () {}),
+                const SizedBox(height: 20),
+                SectionHeader(title: 'Nearby You', onSeeAllTap: () {}),
+                const SizedBox(height: 12),
 
-              const SizedBox(height: 20),
-              InviteFriendsBanner(onInviteTap: () {}),
-              const SizedBox(height: 20),
-              SectionHeader(title: 'Nearby You', onSeeAllTap: () {}),
-              const SizedBox(height: 12),
+                _buildEventsSection(
+                  status: _nearbyStatus,
+                  events: _nearbyEvents,
+                  isUpcomingList: false,
+                  onRetry: _loadNearby,
+                ),
 
-              _buildEventsSection(
-                status: _nearbyStatus,
-                events: _nearbyEvents,
-                isUpcomingList: false,
-                onRetry: _loadNearby,
-              ),
-
-              const SizedBox(height: 80),
-            ],
+                const SizedBox(height: 80),
+              ],
+            ),
           ),
         ),
       ),
@@ -196,7 +203,7 @@ class _HomeTabBodyState extends State<HomeTabBody> {
           child: Center(child: CircularProgressIndicator(strokeWidth: 2)),
         );
       case _LoadStatus.error:
-        return _InlineError(
+        return InlineError(
           message: 'Failed to load categories',
           onRetry: _loadCategories,
         );
@@ -220,7 +227,7 @@ class _HomeTabBodyState extends State<HomeTabBody> {
       case _LoadStatus.error:
         return SizedBox(
           height: 230,
-          child: _InlineError(
+          child: InlineError(
             message: _errorMessage ?? 'Something went wrong',
             onRetry: onRetry,
           ),
@@ -239,86 +246,3 @@ class _HomeTabBodyState extends State<HomeTabBody> {
     }
   }
 }
-
-class _InlineError extends StatelessWidget {
-  final String message;
-  final VoidCallback onRetry;
-
-  const _InlineError({required this.message, required this.onRetry});
-
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 24),
-            child: Text(
-              message,
-              textAlign: TextAlign.center,
-              style: const TextStyle(color: Colors.grey, fontSize: 12),
-            ),
-          ),
-          const SizedBox(height: 8),
-          TextButton(onPressed: onRetry, child: const Text('Retry')),
-        ],
-      ),
-    );
-  }
-}
-
-class HomeBottomNavBar extends StatelessWidget {
-  final int currentIndex;
-  final ValueChanged<int> onTap;
-
-  const HomeBottomNavBar({
-    super.key,
-    required this.currentIndex,
-    required this.onTap,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return BottomAppBar(
-      shape: const CircularNotchedRectangle(),
-      notchMargin: 8,
-      color: Colors.white,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          NavItem(
-            icon: Icons.explore,
-            label: 'Explore',
-            index: 0,
-            currentIndex: currentIndex,
-            onTap: onTap,
-          ),
-          NavItem(
-            icon: Icons.calendar_today_outlined,
-            label: 'Events',
-            index: 1,
-            currentIndex: currentIndex,
-            onTap: onTap,
-          ),
-          const SizedBox(width: 40),
-          NavItem(
-            icon: Icons.map_outlined,
-            label: 'Map',
-            index: 2,
-            currentIndex: currentIndex,
-            onTap: onTap,
-          ),
-          NavItem(
-            icon: Icons.person_outline,
-            label: 'Profile',
-            index: 3,
-            currentIndex: currentIndex,
-            onTap: onTap,
-          ),
-        ],
-      ),
-    );
-  }
-}
-

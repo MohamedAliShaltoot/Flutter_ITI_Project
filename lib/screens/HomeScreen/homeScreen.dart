@@ -1,19 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:tickety/screens/HomeScreen/widgets/categoryChipsRow.dart';
-import 'package:tickety/screens/HomeScreen/widgets/homeHeader.dart';
-import 'package:tickety/screens/HomeScreen/widgets/horizontalEventList.dart';
-import 'package:tickety/screens/HomeScreen/widgets/inviteFriendsBanner.dart';
-import 'package:tickety/screens/HomeScreen/widgets/sectionHeader.dart';
+import 'package:tickety/screens/HomeScreen/widgets/homeBottomNavBar.dart';
+import 'package:tickety/screens/mapScreen.dart';
 import '../../core/constants/app_Colors.dart';
-import '../../core/routes/app_routes.dart';
-import '../EventsScreen/SearchScreen/searchScreen.dart';
-import '../EventsScreen/widgets/reusableSearchField.dart';
-import 'data/homeService.dart';
 import 'homeTabBody.dart';
-import 'models/eventCategoryModel.dart';
-import 'models/homeEventModel.dart';
-import '../EventsScreen/AllEventsScreen/allEventScreen.dart';
 import '../EventsScreen/EmptyEvent/emptyEventScreen.dart';
 import '../OrganizerProfileScreen/organizerProfileScreen.dart';
 
@@ -27,10 +17,17 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   int _currentIndex = 0;
 
+  // final List<Widget> _tabs = const [
+  //   HomeTabBody(),
+  //   AllEventsScreen(),
+  //   EmptyEventsScreen(),
+  //   OrganizerProfileScreen(),
+  // ];
+
   final List<Widget> _tabs = const [
     HomeTabBody(),
-    AllEventsScreen(),
     EmptyEventsScreen(),
+    MapScreen(),
     OrganizerProfileScreen(),
   ];
 

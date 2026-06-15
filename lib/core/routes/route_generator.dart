@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tickety/screens/AuthScreens/signUpScreen/signUpScreen.dart';
+import 'package:tickety/screens/mapScreen.dart';
 import '../../defaultScreen.dart';
 import '../../screens/AuthScreens/signInScreen/signInScreen.dart';
 import '../../screens/EventsScreen/AllEventsScreen/allEventScreen.dart';
@@ -25,6 +26,9 @@ class RouteGenerator {
 
       case AppRoutes.homeScreen:
         return MaterialPageRoute(builder: (_) => HomeScreen());
+
+      case AppRoutes.mapScreen:
+        return MaterialPageRoute(builder: (_) => MapScreen());
 
       case AppRoutes.signInScreen:
         return MaterialPageRoute(builder: (_) => SignInScreen());

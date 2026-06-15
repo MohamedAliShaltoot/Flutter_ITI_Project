@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 
 import '../../../core/constants/imageAssets.dart';
 
-
-
 class InviteFriendsBanner extends StatelessWidget {
   final VoidCallback onInviteTap;
 
@@ -12,32 +10,60 @@ class InviteFriendsBanner extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      width: double.infinity,
+      height: 150,
       margin: const EdgeInsets.symmetric(horizontal: 16),
-      padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         color: const Color(0xFFD6F3F5),
         borderRadius: BorderRadius.circular(16),
       ),
-      child: Row(
+      clipBehavior: Clip.hardEdge,
+      child: Stack(
         children: [
-          Expanded(
+          Positioned.fill(
+            child: Image.asset(
+              ImageAssets.inviteImage,
+              fit: BoxFit.cover,
+              errorBuilder: (_, __, ___) => const SizedBox(),
+            ),
+          ),
+
+          Positioned.fill(
+            child: Container(
+              color: Colors.black.withOpacity(0.1),
+            ),
+          ),
+
+          Padding(
+            padding: const EdgeInsets.all(16),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 const Text(
                   'Invite your friends',
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 15,
+                    color: Colors.white,
+                  ),
                 ),
                 const SizedBox(height: 4),
                 const Text(
                   'Get \$20 for ticket',
-                  style: TextStyle(fontSize: 12, color: Colors.black54),
+                  style: TextStyle(
+                    fontSize: 12,
+                    color: Colors.white70,
+                  ),
                 ),
                 const SizedBox(height: 10),
                 GestureDetector(
                   onTap: onInviteTap,
                   child: Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 8),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 18,
+                      vertical: 8,
+                    ),
                     decoration: BoxDecoration(
                       color: const Color(0xFF4ECDC4),
                       borderRadius: BorderRadius.circular(8),
@@ -55,8 +81,6 @@ class InviteFriendsBanner extends StatelessWidget {
               ],
             ),
           ),
-          Image.asset(ImageAssets.inviteImage, width: 90,
-              errorBuilder: (_, __, ___) => const SizedBox(width: 90, height: 80)),
         ],
       ),
     );
