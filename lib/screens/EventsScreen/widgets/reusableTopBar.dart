@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 
 class ScreenTopBar extends StatelessWidget {
   final String title;
+  final Color? color;
   final List<Widget>? actions;
 
-  const ScreenTopBar({super.key, required this.title, this.actions});
+  const ScreenTopBar({super.key, required this.title, this.actions, this.color = const Color(0xFF1A1A2E)});
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +14,7 @@ class ScreenTopBar extends StatelessWidget {
       child: Row(
         children: [
           IconButton(
-            icon: const Icon(Icons.arrow_back, color: Color(0xFF1A1A2E)),
+            icon:  Icon(Icons.arrow_back, color: color),
             onPressed: () => Navigator.maybePop(context),
           ),
           Expanded(

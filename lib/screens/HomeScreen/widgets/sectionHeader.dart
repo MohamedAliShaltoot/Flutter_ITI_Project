@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../../core/constants/app_Colors.dart';
+
 class SectionHeader extends StatelessWidget {
   final String title;
   final VoidCallback? onSeeAllTap;
@@ -27,10 +29,10 @@ class SectionHeader extends StatelessWidget {
               children: [
                 const Text(
                   'See All',
-                  style: TextStyle(fontSize: 13, color: Colors.grey),
+                  style: TextStyle(fontSize: 13, color: AppColors.primaryColor),
                 ),
                 const SizedBox(width: 2),
-                Icon(Icons.chevron_right, size: 16, color: Colors.grey.shade500),
+                Icon(Icons.chevron_right, size: 16, color: AppColors.primaryColor),
               ],
             ),
           ),

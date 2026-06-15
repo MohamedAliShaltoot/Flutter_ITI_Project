@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
-
 import '../../../core/constants/app_Colors.dart';
-import '../../EventsScreen/DetailsEventScreen/widgets/attendeesRow.dart';
 import '../models/homeEventModel.dart';
 import 'attendeesAvatarStack.dart';
-
 
 
 class EventPosterCard extends StatelessWidget {
@@ -39,12 +36,24 @@ class EventPosterCard extends StatelessWidget {
                     height: 130,
                     width: width,
                     color: event.imageBgColor,
-                    child: Image.asset(
+                    child: event.imageUrl.isNotEmpty
+                        ? Image.network(
                       event.imageUrl,
                       fit: BoxFit.cover,
+                      loadingBuilder: (context, child, progress) {
+                        if (progress == null) return child;
+                        return const Center(
+                          child: SizedBox(
+                            width: 24,
+                            height: 24,
+                            child: CircularProgressIndicator(strokeWidth: 2),
+                          ),
+                        );
+                      },
                       errorBuilder: (_, __, ___) =>
                       const Icon(Icons.image, color: Colors.white54),
-                    ),
+                    )
+                        : const Icon(Icons.image, color: Colors.white54),
                   ),
                 ),
                 Positioned(
@@ -82,8 +91,8 @@ class EventPosterCard extends StatelessWidget {
                     child: Container(
                       padding: const EdgeInsets.all(6),
                       decoration: BoxDecoration(
-                          color: AppColors.whiteColor,
-                          borderRadius: BorderRadius.circular(7.0)
+                        color: AppColors.whiteColor,
+                        borderRadius: BorderRadius.circular(7.0),
                       ),
                       child: Icon(
                         event.isBookmarked ? Icons.bookmark : Icons.bookmark_border,

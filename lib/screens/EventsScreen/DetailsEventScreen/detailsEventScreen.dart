@@ -6,9 +6,23 @@ import 'package:tickety/screens/EventsScreen/DetailsEventScreen/widgets/organize
 import '../../../core/constants/imageAssets.dart';
 import '../../../core/routes/app_routes.dart';
 import '../../../core/sharedWidgets/primaryButton.dart';
+import '../../HomeScreen/models/homeEventModel.dart';
+
 
 class EventDetailsScreen extends StatelessWidget {
-  const EventDetailsScreen({super.key});
+  final HomeEventModel event;
+
+  const EventDetailsScreen({super.key, required this.event});
+
+  String get _dateLabel {
+    if (event.dateDay == '--') return 'Date TBA';
+    final year = event.dateYear.isNotEmpty ? ' ${event.dateYear}' : '';
+    return '${event.dateDay} ${event.dateMonth}$year';
+  }
+
+  String get _timeLabel {
+    return event.localTime.isNotEmpty ? event.localTime : '';
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -17,9 +31,12 @@ class EventDetailsScreen extends StatelessWidget {
       bottomNavigationBar: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-          child: PrimaryButton(label: 'BUY TICKET \$120', onTap: () {
-            Navigator.pushNamed(context, AppRoutes.emptyEventsScreen);
-          }),
+          child: PrimaryButton(
+            label: 'BUY TICKET',
+            onTap: () {
+              Navigator.pushNamed(context, AppRoutes.emptyEventsScreen);
+            },
+          ),
         ),
       ),
       body: CustomScrollView(
@@ -28,7 +45,7 @@ class EventDetailsScreen extends StatelessWidget {
             expandedHeight: 260,
             pinned: true,
             backgroundColor: Colors.black,
-            leading: const BackButton(color: Colors.white),
+           leading: BackButton(color: AppColors.whiteColor),
             actions: [
               Padding(
                 padding: const EdgeInsets.only(right: 12),
@@ -43,21 +60,31 @@ class EventDetailsScreen extends StatelessWidget {
                 ),
               ),
             ],
-            title: const Text(
-              'Event Details',
-              style: TextStyle(
-                color: Colors.white,
+            title: Text(
+              event.title,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style: const TextStyle(
+                color: AppColors.whiteColor,
                 fontWeight: FontWeight.w600,
               ),
             ),
             flexibleSpace: FlexibleSpaceBar(
-              background: Image.asset(
-                ImageAssets.eventDetailsImage,
+              background: event.imageUrl.isNotEmpty
+                  ? Image.network(
+                event.imageUrl,
                 fit: BoxFit.cover,
+                errorBuilder: (_, __, ___) => Container(
+                  color: event.imageBgColor,
+                  child: const Icon(Icons.image, color: Colors.white54),
+                ),
+              )
+                  : Container(
+                color: event.imageBgColor,
+                child: const Icon(Icons.image, color: Colors.white54),
               ),
             ),
           ),
-
           SliverToBoxAdapter(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -69,11 +96,11 @@ class EventDetailsScreen extends StatelessWidget {
                   ),
                   child: AttendeesRow(),
                 ),
-                const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 16),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
                   child: Text(
-                    'International Band\nMusic Concert',
-                    style: TextStyle(
+                    event.title,
+                    style: const TextStyle(
                       fontSize: 26,
                       fontWeight: FontWeight.w400,
                       color: Colors.black87,
@@ -86,16 +113,17 @@ class EventDetailsScreen extends StatelessWidget {
                 InfoRow(
                   iconPath: ImageAssets.calendarImage,
                   iconColor: const Color(0xFF5669FF),
-                  title: '14 December, 2021',
-                  subtitle: 'Tuesday, 4:00PM - 9:00PM',
+                  title: _dateLabel,
+                  subtitle: _timeLabel,
                 ),
                 const SizedBox(height: 16),
-                InfoRow(
-                  iconPath: ImageAssets.locationImage,
-                  iconColor: const Color(0xFF5669FF),
-                  title: 'Gala Convention Center',
-                  subtitle: '36 Guild Street London, UK',
-                ),
+                if (event.location != null)
+                  InfoRow(
+                    iconPath: ImageAssets.locationImage,
+                    iconColor: const Color(0xFF5669FF),
+                    title: event.location!,
+                    subtitle: '',
+                  ),
                 const SizedBox(height: 16),
 
                 OrganizerRow(),
@@ -112,12 +140,13 @@ class EventDetailsScreen extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 8),
-                const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 16),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
                   child: Text(
-                    'Enjoy your favorite dishe and a lovely your friends and family and have a great time. '
-                    'Food from local food trucks will be available for purchase.',
-                    style: TextStyle(
+                    event.description?.trim().isNotEmpty == true
+                        ? event.description!
+                        : 'No additional details available for this event.',
+                    style: const TextStyle(
                       fontSize: 14,
                       color: Colors.grey,
                       height: 1.6,

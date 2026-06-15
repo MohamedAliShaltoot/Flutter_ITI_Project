@@ -16,6 +16,7 @@ class EmptyEventsScreen extends StatelessWidget {
       child: Scaffold(
         backgroundColor: AppColors.appBGColor,
         appBar: AppBar(
+          automaticallyImplyLeading: false,
           backgroundColor: AppColors.appBGColor,
           elevation: 0,
           leading: const BackButton(color: Colors.black),
