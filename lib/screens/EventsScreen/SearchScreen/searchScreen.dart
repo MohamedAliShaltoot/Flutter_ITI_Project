@@ -1,41 +1,23 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:tickety/screens/EventsScreen/SearchScreen/eventListView.dart';
 import '../../HomeScreen/data/homeService.dart';
 import '../../HomeScreen/models/homeEventModel.dart';
 import '../DetailsEventScreen/detailsEventScreen.dart';
-import '../models/eventModel.dart';
 import '../widgets/reusableSearchField.dart';
 import '../widgets/reusableTopBar.dart';
-
-// class SearchScreen extends StatelessWidget {
-//   const SearchScreen({super.key});
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       backgroundColor: const Color(0xFFF5F5FB),
-//       body: SafeArea(
-//         child: Column(
-//           children: [
-//             const ScreenTopBar(title: 'Search'),
-//             const SizedBox(height: 8),
-//             const SearchInputField(),
-//             const SizedBox(height: 8),
-//             Expanded(child: EventListView(events: searchEvents)),
-//           ],
-//         ),
-//       ),
-//     );
-//   }
-// }
-import 'dart:async';
+import 'eventListView.dart';
 
 enum _SearchStatus { idle, loading, success, error }
 
 class SearchScreen extends StatefulWidget {
   final String? initialKeyword;
+  final String? initialCategory;
 
-  const SearchScreen({super.key, this.initialKeyword});
+  const SearchScreen({
+    super.key,
+    this.initialKeyword,
+    this.initialCategory,
+  });
 
   @override
   State<SearchScreen> createState() => _SearchScreenState();
@@ -49,6 +31,9 @@ class _SearchScreenState extends State<SearchScreen> {
   _SearchStatus _status = _SearchStatus.idle;
   List<HomeEventModel> _results = [];
   String? _errorMessage;
+  String? _activeCategory;
+
+  static const String _city = 'New York';
 
   @override
   void initState() {
@@ -56,6 +41,11 @@ class _SearchScreenState extends State<SearchScreen> {
     if (widget.initialKeyword != null && widget.initialKeyword!.isNotEmpty) {
       _controller.text = widget.initialKeyword!;
       _search(widget.initialKeyword!);
+    }
+
+    if (widget.initialCategory != null && widget.initialCategory!.isNotEmpty) {
+      _activeCategory = widget.initialCategory;
+      _searchByCategory(_activeCategory!);
     }
   }
 
@@ -68,34 +58,40 @@ class _SearchScreenState extends State<SearchScreen> {
 
   void _onChanged(String value) {
     _debounce?.cancel();
+    _activeCategory = null;
 
     if (value.trim().isEmpty) {
-      setState(() {
-        _status = _SearchStatus.idle;
-        _results = [];
-      });
+      setState(() { _status = _SearchStatus.idle; _results = []; });
       return;
     }
-
-    _debounce = Timer(const Duration(milliseconds: 500), () {
-      _search(value);
-    });
+    _debounce = Timer(const Duration(milliseconds: 500), () => _search(value));
   }
 
   Future<void> _search(String keyword) async {
     setState(() => _status = _SearchStatus.loading);
     try {
       final results = await _service.searchEvents(keyword: keyword, size: 20);
-      setState(() {
-        _results = results;
-        _status = _SearchStatus.success;
-      });
+      setState(() { _results = results; _status = _SearchStatus.success; });
     } catch (e) {
-      setState(() {
-        _status = _SearchStatus.error;
-        _errorMessage = e.toString();
-      });
+      setState(() { _status = _SearchStatus.error; _errorMessage = e.toString(); });
     }
+  }
+
+  Future<void> _searchByCategory(String category) async {
+    setState(() => _status = _SearchStatus.loading);
+    try {
+      final results = await _service.fetchEventsByCategory(
+        classificationName: category,
+        city: _city,
+      );
+      setState(() { _results = results; _status = _SearchStatus.success; });
+    } catch (e) {
+      setState(() { _status = _SearchStatus.error; _errorMessage = e.toString(); });
+    }
+  }
+
+  void _clearCategory() {
+    setState(() { _activeCategory = null; _status = _SearchStatus.idle; _results = []; });
   }
 
   @override
@@ -111,10 +107,35 @@ class _SearchScreenState extends State<SearchScreen> {
               controller: _controller,
               onChanged: _onChanged,
               onSubmitted: _search,
-              onFilterTap: () {
-
-              },
+              onFilterTap: () {},
             ),
+
+            if (_activeCategory != null) ...[
+              const SizedBox(height: 8),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: Row(
+                  children: [
+                    const Text(
+                      'Category: ',
+                      style: TextStyle(fontSize: 13, color: Colors.grey),
+                    ),
+                    Chip(
+                      label: Text(
+                        _activeCategory!,
+                        style: const TextStyle(fontSize: 12, color: Colors.white),
+                      ),
+                      backgroundColor: Theme.of(context).primaryColor,
+                      deleteIcon: const Icon(Icons.close, size: 14, color: Colors.white),
+                      onDeleted: _clearCategory,
+                      materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                      padding: const EdgeInsets.symmetric(horizontal: 4),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+
             const SizedBox(height: 8),
             Expanded(child: _buildBody()),
           ],
@@ -147,7 +168,9 @@ class _SearchScreenState extends State<SearchScreen> {
               ),
               const SizedBox(height: 8),
               TextButton(
-                onPressed: () => _search(_controller.text),
+                onPressed: () => _activeCategory != null
+                    ? _searchByCategory(_activeCategory!)
+                    : _search(_controller.text),
                 child: const Text('Retry'),
               ),
             ],
@@ -161,14 +184,10 @@ class _SearchScreenState extends State<SearchScreen> {
         }
         return EventListView(
           events: _results,
-          onEventTap: (event) {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (_) => EventDetailsScreen(event: event),
-              ),
-            );
-          },
+          onEventTap: (event) => Navigator.push(
+            context,
+            MaterialPageRoute(builder: (_) => EventDetailsScreen(event: event)),
+          ),
         );
     }
   }

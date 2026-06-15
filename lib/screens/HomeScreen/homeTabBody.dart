@@ -209,7 +209,17 @@ class _HomeTabBodyState extends State<HomeTabBody> {
           onRetry: _loadCategories,
         );
       case _LoadStatus.success:
-        return CategoryChipsRow(categories: _categories, onCategoryTap: (c) {});
+        return CategoryChipsRow(
+          categories: _categories,
+          onCategoryTap: (c) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (_) => SearchScreen(initialCategory: c.label),
+              ),
+            );
+          },
+        );
     }
   }
 

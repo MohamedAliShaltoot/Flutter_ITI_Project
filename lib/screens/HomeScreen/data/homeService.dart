@@ -218,4 +218,25 @@ class HomeService {
     }
   }
 
+  Future<List<HomeEventModel>> fetchEventsByCategory({
+    required String classificationName,
+    required String city,
+    int size = 20,
+  }) async {
+    try {
+      final response = await _dio.get(
+        ApiConstants.events,
+        queryParameters: {
+          'classificationName': classificationName,
+          'city': city,
+          'sort': 'date,asc',
+          'size': size,
+        },
+      );
+      return _parseEvents(response.data);
+    } on DioException catch (e) {
+      throw Exception('Failed to load category events: ${e.message}');
+    }
+  }
+
 }

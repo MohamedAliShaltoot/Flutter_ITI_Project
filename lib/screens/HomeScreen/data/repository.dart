@@ -66,4 +66,15 @@ class HomeRepository {
   }) {
     return _service.fetchPastEventsByCity(city: city, size: size);
   }
+  Future<List<HomeEventModel>> getEventsByCategory({
+    required String classificationName,
+    required String city,
+    int size = 20,
+  }) {
+    return _service.fetchEventsByCategory(
+      classificationName: classificationName,
+      city: city,
+      size: size,
+    );
+  }
 }
