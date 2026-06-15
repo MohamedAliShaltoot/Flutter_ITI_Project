@@ -1,17 +1,14 @@
 import 'package:flutter/material.dart';
-import '../../../core/routes/app_routes.dart';
 import '../models/drawerItemModel.dart';
 import 'appDrawerHeader.dart';
 
 class AppDrawer extends StatelessWidget {
   final String userName;
-  final String userEmail;
   final String? avatarUrl;
 
   const AppDrawer({
     super.key,
     required this.userName,
-    required this.userEmail,
     this.avatarUrl,
   });
 
@@ -25,73 +22,86 @@ class AppDrawer extends StatelessWidget {
           children: [
             AppDrawerHeader(
               name: userName,
-              email: userEmail,
               avatarUrl: avatarUrl,
-              onTap: () {
-                Navigator.pop(context);
-                Navigator.pushNamed(context, AppRoutes.organizerProfileScreen);
-              },
+              onTap: () => Navigator.pop(context),
             ),
+
+            const Divider(height: 1, indent: 20, endIndent: 20),
             const SizedBox(height: 8),
+
             Expanded(
               child: ListView(
-                padding: const EdgeInsets.symmetric(vertical: 8),
+                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
                 children: [
                   DrawerItem(
-                    icon: Icons.confirmation_num_outlined,
-                    label: 'My Tickets',
-                    onTap: () {
-                      Navigator.pop(context);
-                                         },
+                    icon: Icons.person_outline,
+                    label: 'My Profile',
+                    onTap: () => Navigator.pop(context),
                   ),
                   DrawerItem(
-                    icon: Icons.favorite_border,
-                    label: 'Favorites',
-                    onTap: () {
-                      Navigator.pop(context);
-                                         },
+                    icon: Icons.chat_bubble_outline,
+                    label: 'Message',
+                    onTap: () => Navigator.pop(context),
                   ),
                   DrawerItem(
-                    icon: Icons.notifications_none,
-                    label: 'Notifications',
-                    onTap: () {
-                      Navigator.pop(context);
-                                         },
+                    icon: Icons.calendar_month_outlined,
+                    label: 'Calendar',
+                    onTap: () => Navigator.pop(context),
+                  ),
+                  DrawerItem(
+                    icon: Icons.bookmark_border,
+                    label: 'Bookmark',
+                    onTap: () => Navigator.pop(context),
+                  ),
+                  DrawerItem(
+                    icon: Icons.mail_outline,
+                    label: 'Contact Us',
+                    onTap: () => Navigator.pop(context),
                   ),
                   DrawerItem(
                     icon: Icons.settings_outlined,
                     label: 'Settings',
-                    onTap: () {
-                      Navigator.pop(context);
-                                         },
+                    onTap: () => Navigator.pop(context),
                   ),
                   DrawerItem(
-                    icon: Icons.help_outline,
-                    label: 'Help & Support',
-                    onTap: () {
-                      Navigator.pop(context);
-                                         },
+                    icon: Icons.help_outline_rounded,
+                    label: 'Helps & FAQs',
+                    onTap: () => Navigator.pop(context),
                   ),
-                  const Divider(height: 24, indent: 16, endIndent: 16),
                   DrawerItem(
-                    icon: Icons.logout,
-                    label: 'Log out',
-                    iconColor: Colors.red,
-                    textColor: Colors.red,
-                    onTap: () {
-                      Navigator.pop(context);
-                     
-                    },
+                    icon: Icons.logout_rounded,
+                    label: 'Sign Out',
+                    onTap: () => Navigator.pop(context),
                   ),
                 ],
               ),
             ),
-            const Padding(
-              padding: EdgeInsets.all(16),
-              child: Text(
-                'v1.0.0',
-                style: TextStyle(color: Colors.grey, fontSize: 11),
-                textAlign: TextAlign.center,
+
+            Padding(
+              padding: const EdgeInsets.fromLTRB(16, 0, 16, 20),
+              child: Container(
+                height: 48,
+                decoration: BoxDecoration(
+                  gradient: const LinearGradient(
+                    colors: [Color(0xFF7BDCF5), Color(0xFF3AB4D4)],
+                  ),
+                  borderRadius: BorderRadius.circular(28),
+                ),
+                child: const Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(Icons.workspace_premium, color: Colors.white, size: 20),
+                    SizedBox(width: 8),
+                    Text(
+                      'Upgrade Pro',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w600,
+                        fontSize: 14,
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ],

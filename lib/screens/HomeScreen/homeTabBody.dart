@@ -7,6 +7,7 @@ import 'package:tickety/screens/HomeScreen/widgets/inlineError.dart';
 import 'package:tickety/screens/HomeScreen/widgets/inviteFriendsBanner.dart';
 import 'package:tickety/screens/HomeScreen/widgets/sectionHeader.dart';
 import '../../core/constants/app_Colors.dart';
+import '../../core/constants/imageAssets.dart';
 import '../../core/routes/app_routes.dart';
 import '../EventsScreen/SearchScreen/searchScreen.dart';
 import '../EventsScreen/widgets/reusableSearchField.dart';
@@ -112,9 +113,8 @@ class _HomeTabBodyState extends State<HomeTabBody> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: const AppDrawer(
+      drawer: AppDrawer(
         userName: 'Mohamed Ali Shaltoot',
-        userEmail: 'mohamed.shaltoot@example.com',
       ),
       body: SafeArea(
         bottom: false,

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../../../core/constants/app_Colors.dart';
 
 class DrawerItemModel {
   final IconData icon;
@@ -23,7 +22,6 @@ class DrawerItem extends StatelessWidget {
   final VoidCallback onTap;
   final Color? iconColor;
   final Color? textColor;
-  final Widget? trailing;
 
   const DrawerItem({
     super.key,
@@ -32,25 +30,24 @@ class DrawerItem extends StatelessWidget {
     required this.onTap,
     this.iconColor,
     this.textColor,
-    this.trailing,
   });
 
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      leading: Icon(icon, color: iconColor ?? AppColors.primaryColor),
+      leading: Icon(icon, color: iconColor ?? Colors.black54, size: 22),
       title: Text(
         label,
         style: TextStyle(
-          fontSize: 15,
+          fontSize: 14,
           fontWeight: FontWeight.w500,
           color: textColor ?? Colors.black87,
         ),
       ),
-      trailing: trailing,
       onTap: onTap,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-      contentPadding: const EdgeInsets.symmetric(horizontal: 16),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+      contentPadding: const EdgeInsets.symmetric(horizontal: 12),
+      minLeadingWidth: 24,
     );
   }
 }

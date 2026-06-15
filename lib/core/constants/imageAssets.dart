@@ -32,7 +32,4 @@ abstract class ImageAssets {
   static const String upComingImage = "${baseImagePath}upComingImage.png";
   static const String inviteImage = "${baseImagePath}inviteImage.png";
 
-
-
-
 }
