@@ -4,6 +4,7 @@ import 'package:tickety/screens/OrganizerProfileScreen/tabs/favTab.dart';
 import 'package:tickety/screens/OrganizerProfileScreen/tabs/reviewsTab.dart';
 import '../../core/constants/app_Colors.dart';
 import '../../core/constants/imageAssets.dart';
+import '../../core/localDataSource/sharedPreferencesManager.dart';
 import '../EventsScreen/models/eventModel.dart';
 import '../EventsScreen/models/profileHeader.dart';
 import '../EventsScreen/models/reviewModel.dart';
@@ -57,9 +58,24 @@ final List<ReviewModel> organizerReviews = [
   ),
 ];
 
-class OrganizerProfileScreen extends StatelessWidget {
+class OrganizerProfileScreen extends StatefulWidget {
   const OrganizerProfileScreen({super.key});
 
+  @override
+  State<OrganizerProfileScreen> createState() => _OrganizerProfileScreenState();
+}
+
+class _OrganizerProfileScreenState extends State<OrganizerProfileScreen> {
+  late final StoredUser? _user;
+  late final List<StoredFavEvent> _favEvents;
+
+  @override
+  void initState() {
+    super.initState();
+    final prefs = SharedPreferencesManager.instance;
+    _user      = prefs.currentUser;
+    _favEvents = prefs.favEvents;
+  }
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -83,8 +99,10 @@ class OrganizerProfileScreen extends StatelessWidget {
         body: Column(
           children: [
             ProfileHeader(
-              avatarUrl: ImageAssets.appLogo,
-              name: 'Mohamed Ali Shaltoot',
+              // avatarUrl: ImageAssets.appLogo,
+              // name: 'Mohamed Ali Shaltoot',
+              avatarUrl: _user?.avatarUrl ?? ImageAssets.appLogo,
+              name: _user?.name ?? 'Guest',
               following: 350,
               followers: 346,
               onFollowTap: () {},
@@ -108,7 +126,15 @@ class OrganizerProfileScreen extends StatelessWidget {
               child: TabBarView(
                 children: [
                   const AboutTab(),
-                  FavTab(events: organizerEvents),
+                // FavTab(events: organizerEvents),
+                  FavTab(
+                    events: _favEvents.map((e) => EventModel(
+                      imageUrl: e.imageUrl,
+                      dateTime: e.dateTime,
+                      title: e.title,
+                      imageBgColor: Color(e.imageBgColor),
+                    )).toList(),
+                  ),
                   ReviewsTab(reviews: organizerReviews),
                 ],
               ),

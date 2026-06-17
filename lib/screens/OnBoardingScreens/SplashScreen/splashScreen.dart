@@ -1,10 +1,10 @@
-// ignore_for_file: file_names
-
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:tickety/core/constants/app_Colors.dart';
-import '../../../core/constants/imageAssets.dart';
-import '../OnBoardingScreens/OnboardingScreen.dart';
+import 'package:tickety/core/constants/imageAssets.dart';
+import '../../../core/localDataSource/sharedPreferencesManager.dart';
+import '../../../core/routes/app_routes.dart';
+
 
 class SplashScreen extends StatefulWidget {
   @override
@@ -15,12 +15,25 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    Timer(Duration(seconds: 3), () {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => OnboardingScreen()),
-      );
-    });
+    _navigate();
+  }
+
+  Future<void> _navigate() async {
+    await Future.delayed(const Duration(seconds: 3));
+
+    final prefs = SharedPreferencesManager.instance;
+
+    String route;
+    if (!prefs.hasSeenOnboarding) {
+      route = AppRoutes.onboardingScreen;
+    } else if (prefs.isLoggedIn) {
+      route = AppRoutes.homeScreen;
+    } else {
+      route = AppRoutes.signInScreen;
+    }
+
+    if (!mounted) return;
+    Navigator.pushReplacementNamed(context, route);
   }
 
   @override
@@ -32,7 +45,6 @@ class _SplashScreenState extends State<SplashScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Image.asset(ImageAssets.fullAppLogoImage, width: 242, height: 150),
-
           ],
         ),
       ),

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import '../../../core/localDataSource/sharedPreferencesManager.dart';
+import '../../../core/routes/app_routes.dart';
 import '../models/drawerItemModel.dart';
 import 'appDrawerHeader.dart';
 
@@ -71,7 +73,10 @@ class AppDrawer extends StatelessWidget {
                   DrawerItem(
                     icon: Icons.logout_rounded,
                     label: 'Sign Out',
-                    onTap: () => Navigator.pop(context),
+                    onTap: () async{
+                      await SharedPreferencesManager.instance.logout();
+                      Navigator.pushReplacementNamed(context, AppRoutes.signInScreen);
+                    },
                   ),
                 ],
               ),

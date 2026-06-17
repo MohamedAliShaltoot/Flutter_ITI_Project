@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:tickety/core/constants/app_Colors.dart';
 import '../../HomeScreen/data/homeService.dart';
 import '../../HomeScreen/models/homeEventModel.dart';
 import '../DetailsEventScreen/detailsEventScreen.dart';
@@ -125,7 +126,7 @@ class _SearchScreenState extends State<SearchScreen> {
                         _activeCategory!,
                         style: const TextStyle(fontSize: 12, color: Colors.white),
                       ),
-                      backgroundColor: Theme.of(context).primaryColor,
+                      backgroundColor: AppColors.primaryColor,
                       deleteIcon: const Icon(Icons.close, size: 14, color: Colors.white),
                       onDeleted: _clearCategory,
                       materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,

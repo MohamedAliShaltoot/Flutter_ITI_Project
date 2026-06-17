@@ -5,7 +5,6 @@ import 'package:tickety/screens/mapScreen.dart';
 import '../../core/constants/app_Colors.dart';
 import '../EventsScreen/EmptyEvent/myEventScreen.dart';
 import 'homeTabBody.dart';
-import '../EventsScreen/EmptyEvent/emptyEventScreen.dart';
 import '../OrganizerProfileScreen/organizerProfileScreen.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -18,24 +17,28 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   int _currentIndex = 0;
 
-  // final List<Widget> _tabs = const [
-  //   HomeTabBody(),
-  //   AllEventsScreen(),
-  //   EmptyEventsScreen(),
-  //   OrganizerProfileScreen(),
-  // ];
-
   final List<Widget> _tabs = const [
     HomeTabBody(),
-    //EmptyEventsScreen(),
     MyEventsScreen(),
     MapScreen(),
     OrganizerProfileScreen(),
   ];
 
-  void _onNavTap(int index) {
-    setState(() => _currentIndex = index);
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    final args = ModalRoute.of(context)?.settings.arguments;
+    if (args is Map && args.containsKey('tabIndex')) {
+      final index = args['tabIndex'] as int;
+      if (index != _currentIndex) {
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          if (mounted) setState(() => _currentIndex = index);
+        });
+      }
+    }
   }
+
+  void _onNavTap(int index) => setState(() => _currentIndex = index);
 
   @override
   Widget build(BuildContext context) {
@@ -66,5 +69,3 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 }
-
-

@@ -7,6 +7,29 @@ class EventCard extends StatelessWidget {
 
   const EventCard({super.key, required this.event, this.onTap});
 
+  Widget _buildImage() {
+    final url = event.imageUrl;
+
+    if (url.isEmpty) {
+      return const Icon(Icons.image, color: Colors.white54);
+    }
+
+    if (url.startsWith('http://') || url.startsWith('https://')) {
+      return Image.network(
+        url,
+        fit: BoxFit.cover,
+        errorBuilder: (_, __, ___) =>
+        const Icon(Icons.image, color: Colors.white54),
+      );
+    }
+
+    return Image.asset(
+      url,
+      fit: BoxFit.cover,
+      errorBuilder: (_, __, ___) =>
+      const Icon(Icons.image, color: Colors.white54),
+    );
+  }
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -36,12 +59,7 @@ class EventCard extends StatelessWidget {
                 width: 60,
                 height: 60,
                 color: event.imageBgColor,
-                child: Image.asset(
-                  event.imageUrl,
-                  fit: BoxFit.cover,
-                  errorBuilder: (_, __, ___) =>
-                  const Icon(Icons.image, color: Colors.white54),
-                ),
+                child: _buildImage(),
               ),
             ),
             const SizedBox(width: 12),
