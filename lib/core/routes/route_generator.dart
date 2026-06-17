@@ -9,6 +9,8 @@ import '../../screens/EventsScreen/EmptyEvent/emptyEventScreen.dart';
 import '../../screens/EventsScreen/SearchScreen/searchScreen.dart';
 import '../../screens/HomeScreen/homeScreen.dart';
 import '../../screens/HomeScreen/models/homeEventModel.dart';
+import '../../screens/OnBoardingScreens/OnBoardingScreens/OnboardingScreen.dart';
+import '../../screens/OnBoardingScreens/SplashScreen/splashScreen.dart';
 import '../../screens/OrganizerProfileScreen/organizerProfileScreen.dart';
 import 'app_routes.dart';
 
@@ -26,6 +28,12 @@ class RouteGenerator {
 
       case AppRoutes.homeScreen:
         return MaterialPageRoute(builder: (_) => HomeScreen());
+
+      case AppRoutes.splashScreen:
+        return MaterialPageRoute(builder: (_) => SplashScreen());
+
+      case AppRoutes.onboardingScreen:
+        return MaterialPageRoute(builder: (_) => OnboardingScreen());
 
       case AppRoutes.mapScreen:
         return MaterialPageRoute(builder: (_) => MapScreen());
@@ -51,7 +59,7 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => OrganizerProfileScreen());
 
       default :
-        return MaterialPageRoute(builder: (_) => Defaultscreen());
+        return MaterialPageRoute(builder: (_) => HomeScreen());
     }
   }
 }

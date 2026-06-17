@@ -8,6 +8,7 @@ class PrimaryButton extends StatelessWidget {
   final VoidCallback onTap;
   final double? ratio;
   final String? imagePath;
+  final bool isLoading;
 
   const PrimaryButton({
     super.key,
@@ -15,17 +16,20 @@ class PrimaryButton extends StatelessWidget {
     required this.onTap,
     this.ratio = 0.9,
     this.imagePath=ImageAssets.leftArrowImage,
+    this.isLoading = false,
   });
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: onTap,
+      onTap: isLoading ? null : onTap,
       child: Container(
         height: AppSpacing.buttonHeight,
         width: MediaQuery.of(context).size.width  * ratio!,
         decoration: BoxDecoration(
-          color: AppColors.primaryColor,
+          color: isLoading
+              ? AppColors.primaryColor.withOpacity(0.6)
+              : AppColors.primaryColor,
           borderRadius: BorderRadius.circular(AppSpacing.buttonRadius),
         ),
         child: Stack(

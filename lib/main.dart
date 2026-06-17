@@ -1,22 +1,27 @@
 import 'package:flutter/material.dart';
-import 'package:tickety/screens/EventsScreen/EmptyEvent/emptyEventScreen.dart';
-import 'package:tickety/screens/OnBoardingScreens/SplashScreen/splashScreen.dart';
 import 'core/constants/appConstants.dart';
+import 'core/localDataSource/sharedPreferencesManager.dart';
 import 'core/routes/app_routes.dart';
 import 'core/routes/route_generator.dart';
 
-void main() {
-  runApp(TicketyApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await SharedPreferencesManager.instance.init();
+
+  runApp(const TicketyApp());
 }
 
 class TicketyApp extends StatelessWidget {
+  const TicketyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false, 
+            debugShowCheckedModeBanner: false,
       title: AppConstants.appName,
-     initialRoute: AppRoutes.homeScreen,
-     onGenerateRoute: RouteGenerator.generateRoute,
+      initialRoute: AppRoutes.splashScreen,
+      onGenerateRoute: RouteGenerator.generateRoute,
     );
   }
 }
+

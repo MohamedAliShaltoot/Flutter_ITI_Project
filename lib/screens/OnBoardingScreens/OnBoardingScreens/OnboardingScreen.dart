@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:tickety/screens/AuthScreens/signUpScreen/signUpScreen.dart';
 import 'package:tickety/screens/OnBoardingScreens/OnBoardingScreens/widgets/MockupImage.dart';
 import 'package:tickety/screens/OnBoardingScreens/OnBoardingScreens/widgets/OnboardingData.dart';
 import 'package:tickety/screens/OnBoardingScreens/OnBoardingScreens/widgets/OnboardingSlide.dart';
 import '../../../core/constants/app_Colors.dart';
 import '../../../core/constants/imageAssets.dart';
+import '../../../core/localDataSource/sharedPreferencesManager.dart';
+import '../../../core/routes/app_routes.dart';
 
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({super.key});
@@ -63,13 +64,10 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
   void _skip() => _finish();
 
-  void _finish() {
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(builder: (context) =>  SignUpScreen(
-
-      )),
-    );
+  Future<void> _finish() async {
+    await SharedPreferencesManager.instance.markOnboardingSeen();
+    if (!mounted) return;
+    Navigator.pushReplacementNamed(context, AppRoutes.signUpScreen);
   }
 
   @override

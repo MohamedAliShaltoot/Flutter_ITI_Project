@@ -11,6 +11,7 @@ class AuthTextField extends StatefulWidget {
   final TextInputType keyboardType;
   final TextInputAction textInputAction;
   final String? image;
+  final String? Function(String?)? validator;
 
   const AuthTextField({
     super.key,
@@ -21,6 +22,7 @@ class AuthTextField extends StatefulWidget {
     this.keyboardType = TextInputType.text,
     this.textInputAction = TextInputAction.next,
     this.image,
+    this.validator,
   });
 
   @override
@@ -49,21 +51,16 @@ class _AuthTextFieldState extends State<AuthTextField> {
         child: Row(
           children: [
             const SizedBox(width: 16),
-            // Icon(
-            //   widget.leadingIcon,
-            //   size: 18,
-            //   color:
-            //       _hasFocus ? AppColors.primaryColor : AppColors.textSecondary,
-            // ),
+
             Image.asset(widget.image ?? "",width: 16,height: 16),
             const SizedBox(width: 10),
             Expanded(
-              child: TextField(
+              child: TextFormField(
                 controller: widget.controller,
                 obscureText: widget.isPassword && _obscure,
                 keyboardType: widget.keyboardType,
                 textInputAction: widget.textInputAction,
-
+                validator: widget.validator,
                 decoration: InputDecoration(
                   hintText: widget.hint,
                   border: InputBorder.none,

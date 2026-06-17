@@ -8,6 +8,7 @@ import 'package:tickety/screens/HomeScreen/widgets/inviteFriendsBanner.dart';
 import 'package:tickety/screens/HomeScreen/widgets/sectionHeader.dart';
 import '../../core/constants/app_Colors.dart';
 import '../../core/constants/imageAssets.dart';
+import '../../core/localDataSource/sharedPreferencesManager.dart';
 import '../../core/routes/app_routes.dart';
 import '../EventsScreen/SearchScreen/searchScreen.dart';
 import '../EventsScreen/widgets/reusableSearchField.dart';
@@ -27,7 +28,7 @@ class HomeTabBody extends StatefulWidget {
 
 class _HomeTabBodyState extends State<HomeTabBody> {
   final HomeRepository _appRepository = HomeRepository();
-
+late StoredUser? _user;
   _LoadStatus _categoriesStatus = _LoadStatus.loading;
   _LoadStatus _upcomingStatus = _LoadStatus.loading;
   _LoadStatus _nearbyStatus = _LoadStatus.loading;
@@ -47,6 +48,8 @@ class _HomeTabBodyState extends State<HomeTabBody> {
     _loadCategories();
     _loadUpcoming();
     _loadNearby();
+    final prefs = SharedPreferencesManager.instance;
+    _user = prefs.currentUser;
   }
 
   Future<void> _loadCategories() async {
@@ -114,7 +117,7 @@ class _HomeTabBodyState extends State<HomeTabBody> {
   Widget build(BuildContext context) {
     return Scaffold(
       drawer: AppDrawer(
-        userName: 'Mohamed Ali Shaltoot',
+        userName:_user?.name ?? 'Guest',
       ),
       body: SafeArea(
         bottom: false,
